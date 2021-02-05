@@ -1,1 +1,2 @@
-print('I\'m a leech and you\'re watching Bizaardvark')
+for i in range(5):
+    print(i)
