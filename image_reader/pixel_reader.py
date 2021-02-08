@@ -4,19 +4,27 @@ from openpyxl.styles import PatternFill, colors
 
 im = Image.open('coomer.jpg', 'r')
 
+width, height = im.size
+
 pix_val = list(im.getdata())
 
-blue_background = PatternFill(fgColor = colors.BLUE, fill_type='solid')
+def rgb_to_hex(rgb):
+    return '#{:02x}{:02x}{:02x}'.format(rgb[0], rgb[1], rgb[2])
+
+print(pix_val[0])
+print(rgb_to_hex(pix_val[0]))
 
 workbook = Workbook()
 sheet = workbook.active
 
-for i in range(1, 7):
-    for j in range(1, 7):
+for i in range(1, width + 1):
+    for j in range(1, height + 1):
+        for k in pix_val:
+            background = PatternFill(fgColor = '00' + rgb_to_hex(k), fill_type='solid')
+            break
         cell = sheet.cell(column = j, row = i)
-        cell.fill = blue_background
+        cell.fill = background
 
-# for row in sheet.iter_rows(min_row = 1, max_row = 2, min_col = 1, max_col = 3):
-#     print(row)
 
-workbook.save(filename = 'hello_world.xlsx')
+
+# workbook.save(filename = 'hello_world.xlsx')
